@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chess Study</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="board-section">
+            <h2>Chess Board</h2>
+            <div id="chessboard"></div>
+            <div class="controls">
+                <button onclick="newGame()">New Game</button>
+                <button onclick="flipBoard()">Flip Board</button>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <div id="status">White to move</div>
+            
+            <div class="tabs">
+                <button class="tab" onclick="showTab('play')">Play</button>
+                <button class="tab" onclick="showTab('import')">Import</button>
+                <button class="tab" onclick="showTab('study')">Study</button>
+                <button class="tab" onclick="showTab('review')">Review</button>
+            </div>
+            
+            <div id="play-tab" class="tab-content">
+                <h3>Moves</h3>
+                <div id="moves"></div>
+                <h3>Recent Games</h3>
+                <div id="games-history"></div>
+            </div>
+            
+            <div id="import-tab" class="tab-content" style="display:none;">
+                <h3>Import PGN</h3>
+                <input type="file" id="pgn-file" accept=".pgn,.txt">
+                <button onclick="importPGN()">Import</button>
+                <div id="import-status"></div>
+                <h3>Imported Games</h3>
+                <div id="imported-games"></div>
+            </div>
+            
+            <div id="study-tab" class="tab-content" style="display:none;">
+                <h3>Studying</h3>
+                <div id="studying-games"></div>
+                <div id="mistake-viewer" style="display:none;">
+                    <h3>Mistakes</h3>
+                    <div id="mistakes-list"></div>
+                    <button id="study-mistake-btn" style="display:none;">Add to Review</button>
+                    
+                    <div id="game-navigator" style="display:none; margin-top: 20px;">
+                        <h3>Game Navigation</h3>
+                        <div class="controls">
+                            <button onclick="goToStart()">Start</button>
+                            <button onclick="previousMove()">←</button>
+                            <button onclick="nextMove()">→</button>
+                            <button onclick="goToEnd()">End</button>
+                        </div>
+                        <div id="move-info"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="review-tab" class="tab-content" style="display:none;">
+                <h3>Review</h3>
+                <div id="review-content">
+                    <button onclick="loadReview()">Next Review</button>
+                </div>
+                <div id="review-position" style="display:none;">
+                    <p id="review-question"></p>
+                    <div id="review-board-container">
+                        <div id="review-chessboard"></div>
+                        <div id="review-status">Ready for review</div>
+                    </div>
+                    <div id="review-difficulty" style="display:none;">
+                        <p>How difficult?</p>
+                        <button onclick="submitReview(1)">Easy</button>
+                        <button onclick="submitReview(2)">Medium</button>
+                        <button onclick="submitReview(3)">Hard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="game-state.js"></script>
+    <script src="board-ui.js"></script>
+    <script src="move-handler.js"></script>
+    <script src="study-system.js"></script>
+    <script src="game-management.js"></script>
+    <script src="game-navigation.js"></script>
+    <script src="socket-events.js"></script>
+</body>
+</html>
